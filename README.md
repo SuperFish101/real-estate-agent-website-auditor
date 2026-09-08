@@ -45,7 +45,7 @@ The five files that define the auditor, in the order they matter:
 | **`identity.md`** | Who the auditor is, which standards it enforces, and what it refuses to do |
 | **`rules.md`** | How it audits: the order, how it cites, how it grades severity, and the evidence bar |
 | **`examples.md`** | Three worked examples: a finding, a pass, and a verdict it deliberately refused to issue |
-| **`reference/`** | **The standards themselves, verbatim.** 18 published documents, each with a provenance table naming the publisher, source URL and retrieval date |
+| **`reference/`** | **The standards themselves, verbatim.** 18 published standards, vendored across 22 files (WCAG is split by principle), each with a provenance table naming the publisher, source URL and retrieval date |
 | **`README.md`** | This file |
 
 Everything else is supporting work you can ignore on a first read: `stages/` holds one contract
@@ -63,28 +63,25 @@ This is a folder of instructions, not an installable program. It is model- and v
 an `AGENTS.md` and a `CLAUDE.md` at the root point any compliant agent at the same pipeline. It
 runs at two levels depending on what the host can do.
 
-**Source-only, zero setup.** Attach the folder to any Claude project (or any assistant that can
-read the files) alongside a saved copy of the page, and it audits from source: it reads the
-markup and `reference/`, and reports pass/fail/gap with a citation for each. This reaches 20 of
-the 50 WCAG criteria and every non-rendered check. It cannot save the page for you, open a
-browser, or write files, so you save the page yourself (three `curl` lines, below) and the
-findings come back in the reply.
+**If you drop it into a Claude workspace project (no setup), you can:**
 
-**Full run, in a tool-capable agent.** Give it the four capabilities below — Claude Code,
-OpenAI Codex, Cursor and Hermes all qualify — and it also fetches the page itself, renders it
-in a browser to reach 34 of 50 criteria plus the licence type-size rule, and writes the two
-reports to `output/<run>/`.
+- Save the agent's page yourself (three `curl` lines, or the browser's "Save Page As"), attach it with the folder, and get a real audit back in the reply.
+- Run **11 of the 14 stages in full** — indexability, crawler access (Google, Bing, ChatGPT, Claude, Perplexity), structured data, spam, licence-and-broker *presence*, AB 723 listing-image disclosure, fair housing, privacy and consent, and internal-link integrity.
+- Get **all of California law** (its pack is vendored) and **20 of the 50 WCAG accessibility criteria** — every check a static file can prove.
+- Read every finding with its citation into `reference/`, so a judge can open the provision and check it.
 
-| Capability | What it adds over the source-only run |
-|---|---|
-| **Read files in this folder** | Required at both levels — loads `identity.md`, `rules.md`, the stage contracts and `reference/` |
-| **Run a shell** | Fetches the page with `curl` so you don't have to; runs `verify-citations.sh` and the freshness check |
-| **Write files** | Commits the findings ledger and client summary to `output/<run>/` instead of leaving them in the reply |
-| **Drive a browser** (Playwright MCP, or equivalent) | Renders the page for contrast, keyboard, focus, reflow and licence type-size: 14 more WCAG criteria, taking coverage from 20/50 to 34/50 |
+**If you wire up the tools (a few minutes — see [`SETUP.md`](SETUP.md)), you also get:**
 
-Either way the findings and citations are identical; the tools change what the audit can *reach
-and record*, never what it decides. **Wiring up the full run takes a few minutes** —
-[`SETUP.md`](SETUP.md) has the exact steps, including the Playwright browser tools.
+- **Auto-fetch:** it saves the page and stylesheet for you instead of you doing it by hand.
+- **Accessibility 20 → 34 of 50:** the browser measures contrast, keyboard operability, focus visibility and reflow — things a saved file physically cannot show.
+- **The licence type-size check:** not just that the licence number is present, but that it is legible rather than hidden in tiny type.
+- **Live freshness re-checks:** stage 01 re-fetches each standard to confirm the rule hasn't changed since it was vendored.
+- **Other states on demand:** it researches and builds a non-California state's pack.
+- **Outbound-link reachability:** it actually follows external links and records redirect chains.
+- **Reports on disk:** the findings ledger and client summary written to `output/<run>/` to re-open months later, instead of living only in the reply.
+
+Either way the findings and their citations are identical — the tools change what the audit can
+*reach and record*, never what it decides. The full breakdown is in the table below.
 
 ### Stage by stage: what runs where
 
