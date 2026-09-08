@@ -330,7 +330,7 @@ bill of accessibility.
 
 ## What goes in the run
 
-`output/<run>/03b-render.md`, written by stage 03 and read by stages 08 and 10. It carries, in
+`output/<run>/03b-render.md`, written by stage 03 and read by stages 07 and 09. It carries, in
 this order: what was rendered and from which path, the viewport, whether stylesheets loaded,
 then one table per measurement above with the raw numbers. No verdicts. Stage 03 judges
 nothing, and that does not change because a browser is open.

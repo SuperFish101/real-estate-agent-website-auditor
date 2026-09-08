@@ -156,6 +156,29 @@ for pair in "rules.md:210" "identity.md:100" "CLAUDE.md:80" "CONTEXT.md:80" "ref
 done
 echo "    $(( 5 + $(ls -d stages/*/ 2>/dev/null | wc -l | tr -d ' ') )) size caps checked"
 
+echo "== 7. The stage map matches the stage folders"
+# A renumber that edits the folders but not the prose leaves the map lying. Two invariants:
+# (a) every stages/NN-slug/ path written in any doc points at a real folder, and
+# (b) the folders themselves are a contiguous run 01..N with no gap and no repeat.
+stagerefs=0
+for ref in $(grep -rhoE 'stages/[0-9]{2}-[a-z-]+' $DOCS 2>/dev/null | sort -u); do
+  stagerefs=$((stagerefs + 1))
+  if [ ! -d "$ref" ]; then
+    bad "doc references '$ref' but no such stage folder exists (renumber left the map lying)"
+  fi
+done
+nums=$(ls -d stages/*/ 2>/dev/null | grep -oE '/[0-9]{2}-' | tr -dc '0-9\n' | sort)
+expected=1
+for n in $nums; do
+  got=$((10#$n))
+  if [ "$got" -ne "$expected" ]; then
+    bad "stage folders are not contiguous: expected $(printf '%02d' "$expected"), found $(printf '%02d' "$got"). A renumber skipped or duplicated a number"
+    break
+  fi
+  expected=$((expected + 1))
+done
+echo "    $stagerefs stage-path references checked against $(ls -d stages/*/ 2>/dev/null | wc -l | tr -d ' ') folders"
+
 echo
 if [ "$fail" -eq 0 ]; then
   echo "PASS. Every citation resolves."

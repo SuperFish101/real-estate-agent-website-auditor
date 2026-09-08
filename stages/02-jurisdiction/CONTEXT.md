@@ -52,7 +52,7 @@ in another. Guessing here silently applies the wrong law to somebody's business.
 
 4. **Show the new pack and wait for a yes before using it.** List every standard found with its source URL, and every one of the four categories where you searched and found nothing. A category searched and empty is a result; a category skipped is a hole. This review is not optional and it is not skippable in a non-interactive run: if nobody can answer, fall back to choice B and say so in the report.
 
-5. **Another state, choice B**: load no state pack. Stages 09, 11 and 13 are skipped, not run and marked NOT APPLICABLE. The report's first section says, in one sentence, that no state law was checked and which state it would have been.
+5. **Another state, choice B**: load no state pack. Stages 09, 10 and 12 are skipped, not run and marked NOT APPLICABLE. The report's first section says, in one sentence, that no state law was checked and which state it would have been.
 
 6. If a licensee holds licences in more than one state, load every pack named and label each finding with the state it came from. Do not merge them.
 

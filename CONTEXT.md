@@ -7,7 +7,7 @@ names its own inputs, so you never load a standard before the stage that enforce
 
 | Task | Go To |
 |---|---|
-| Run a full audit | Stage 01, then 03 through 15, in order |
+| Run a full audit | Stage 01, then 02 through 14, in order |
 | **Check the rules are still current** | `stages/01-freshness/CONTEXT.md`. Runs first, every time, automatically |
 | **Decide which state's law applies** | `stages/02-jurisdiction/CONTEXT.md`. Asks. Builds the pack if the state is not wired |
 | List what is in the artifact | `stages/03-inventory/CONTEXT.md` |
@@ -30,7 +30,7 @@ names its own inputs, so you never load a standard before the stage that enforce
    (gate)            (gate)          (+ browser mode)     (independent of each other)      (assembles)
 ```
 
-Stages 09, 11 and 13 read from **whichever state pack stage 02 loaded**. With California
+Stages 09, 10 and 12 read from **whichever state pack stage 02 loaded**. With California
 loaded they enforce 10 CCR 2773, B&P 10140.8 and CalOPPA. With another state loaded they
 enforce that state's equivalents, and California is not read, not mentioned, and not listed as
 NOT APPLICABLE.
@@ -65,7 +65,7 @@ opinion wearing a number.
 ## Browser mode
 
 **On by default. Every audit runs it when the Playwright tools are present.** Stage 03 renders the page and writes
-`output/<run>/03b-render.md`, and stages 08 and 10 read numbers out of it instead of leaving
+`output/<run>/03b-render.md`, and stages 07 and 09 read numbers out of it instead of leaving
 those rows at REQUIRES BROWSER. It reaches contrast, keyboard operability, focus visibility,
 reflow and the licence type size, taking WCAG coverage from 20 of 50 criteria to 34. The
 method is [`method/browser-mode.md`](method/browser-mode.md). It adds evidence, never a rule.

@@ -92,12 +92,12 @@ source. This table is the whole truth, pass by pass.
 |---|---|---|---|
 | 01 | freshness | Trusts the vendored standards and their retrieval dates in `reference/` | **Shell:** re-fetches each standard and confirms it hasn't changed since it was vendored |
 | 02 | jurisdiction | **California runs in full** (its pack is vendored). Asks which state applies | **Shell/web:** researches and builds a *new* state's pack when it isn't California |
-| 03 | inventory | Full: lists everything in the markup | **Browser:** also records rendered measurements for stages 07/08/09 |
+| 03 | inventory | Full: lists everything in the markup | **Browser:** also records the rendered measurements that stages 07 and 09 read |
 | 04 | indexability | **Full.** Robots meta, canonicals, HTTP directives — all from source | — |
 | 05 | crawler-access | **Full.** robots.txt for Google, Bing, ChatGPT, Claude, Perplexity | — |
 | 06 | structured-data | **Full.** Parses the JSON-LD and checks it against `LocalBusiness` | — |
 | 07 | accessibility | **20 of 50 WCAG criteria** — everything a static file can prove | **Browser:** contrast, keyboard, focus, reflow → **34 of 50** |
-| 08 | spam-check | **Full** from source (rarely fires by design; turns on intent) | **Browser:** confirms a couple of layout-dependent cases |
+| 08 | spam-check | **Full** from source (rarely fires by design; turns on intent) | — |
 | 09 | licence-and-broker | Checks the licence number and broker name **are present** on the page | **Browser:** the one thing source can't — whether the type is too small |
 | 10 | listing-images (AB 723) | **Full.** Reads `manifest.md`; no manifest = insufficient evidence | — |
 | 11 | fair-housing | **Full.** Flags wording against 24 CFR 100.75, hands to a person | — |
@@ -192,7 +192,7 @@ against the rule it claims.
 ```
 git clone <this repo>
 cd real-estate-agent-website-auditor
-./verify-citations.sh        # six checks, no dependencies. Proves the citations are real
+./verify-citations.sh        # seven checks, no dependencies. Proves the citations are real
 ```
 
 Then, in a tool-capable agent with this folder attached (see [Requirements](#requirements)):
@@ -272,19 +272,6 @@ ago is the exact failure this tool exists to prevent.
 
 **A Texas audit contains no California rules.** Not even as NOT APPLICABLE lines. Only the
 loaded state appears.
-
-### No setup required, better with it
-
-Nothing here needs an account, a key or an install to produce a real audit. One stage,
-speed, gets better if you have more:
-
-| You have | Stage 07 gives you |
-|---|---|
-| Nothing | The committed sample response, so you can see the stage work end to end |
-| Lighthouse installed | Real lab LCP and CLS for the site. INP reported as needing field data, with the command to get it |
-| A free Google API key | Real-user LCP, **INP** and CLS at the 75th percentile, which is the percentile Google's own thresholds are defined at |
-
-Every other stage runs fully with nothing installed.
 
 ---
 
@@ -409,10 +396,11 @@ criminal-liability accusations about a real named business that never asked to b
 
 ## Judge protocol, six minutes
 
-1. `./verify-citations.sh`. Six checks: every provision ID cited anywhere exists in
+1. `./verify-citations.sh`. Seven checks: every provision ID cited anywhere exists in
    `reference/`; every `file.md:line` pointer lands on the line carrying that provision; every
    sample pointer exists; every reference file declares provenance; every internal link
-   resolves; and the files that load on every run are under their ICM size caps. It caught
+   resolves; the files that load on every run are under their ICM size caps; and every stage
+   path named in the docs points at a real folder in a gap-free `01..N` sequence. It caught
    seventeen bad pointers during this build, which is what it is for. **(60s)**
 2. Open `reference/state/ca/bpc-10140-8-ab-723.md`. A complete state statute, not an
    excerpt. Compare to the leginfo URL in its provenance table. **(60s)**

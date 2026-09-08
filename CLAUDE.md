@@ -18,10 +18,10 @@ examples.md   worked findings              stages/       one contract per pass (
 
 | Keyword | Action |
 |---|---|
-| `audit <folder>` | Work `CONTEXT.md` stages 01 to 15 against that folder. **This includes browser mode.** Stage 03 renders the page unless the Playwright tools are absent |
+| `audit <folder>` | Work `CONTEXT.md` stages 01 to 14 against that folder. **This includes browser mode.** Stage 03 renders the page unless the Playwright tools are absent |
 | `audit <folder> no browser` | The same, deliberately without the browser. The run header must say the gap was chosen |
 | `status` | List `output/*/` and say which stages each run completed |
-| `verify` | Run `./verify-citations.sh`, report the six checks |
+| `verify` | Run `./verify-citations.sh`, report the seven checks |
 | `freshness` | Run `./check-standards-freshness.sh`, report any standard that moved |
 
 ## Routing
@@ -51,7 +51,7 @@ The context window is working memory, not storage. No agent reads this whole fol
 
 Stages write to `output/<run>/NN-<stage>.md`. Stage 14 reads them all and assembles the two
 reports. Edit a stage output and stage 14 picks up your edit. In browser mode stage 03 also
-writes `03b-render.md`, which stages 08 and 10 read and nothing else does.
+writes `03b-render.md`, which stages 07 and 09 read and nothing else does.
 
 ## The rule that outranks the rest
 
