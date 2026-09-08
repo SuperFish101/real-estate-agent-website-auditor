@@ -1,7 +1,9 @@
 # Setup: wiring up an agent to run the auditor
 
-This auditor is a folder of instructions and standards, not a program. It runs **inside a
-tool-capable AI agent** that can act on your machine. This file is the few-minute setup.
+This auditor is a folder of instructions and standards, not a program. It runs from source in
+any Claude project with zero setup, and does a **full run** — fetching the page, rendering it,
+writing the reports — inside a tool-capable AI agent that can act on your machine. This file is
+that few-minute setup.
 
 It is model- and vendor-agnostic. The root `AGENTS.md` and `CLAUDE.md` point any compliant
 agent at the same pipeline (`CLAUDE.md` -> `CONTEXT.md` -> the stage contracts). Known-good
@@ -22,13 +24,17 @@ add on purpose — see below. **Without the browser the audit still runs**, decl
 its header, and reaches 20 of 50 WCAG criteria instead of 34. It never passes a check it did
 not perform.
 
-## Where it will NOT run
+## Two ways to run it
 
-A plain chat window, or a knowledge-only "project"/workspace that only attaches this folder as
-reference. Those can read the files but cannot save the page, write reports, or open a browser,
-so the run described in the README is impossible there. If that is all you have, save a page
-yourself and paste it in for a source-only reasoning pass — but that is not an audit this tool
-will stand behind.
+**Source-only, in a plain Claude project.** Attach this folder plus a saved copy of the page.
+The assistant reads the markup and `reference/` and returns pass/fail/gap with a citation for
+each — 20 of the 50 WCAG criteria and every non-rendered check, zero setup. It can't fetch the
+page, open a browser, or write files, so you save the page yourself (see the README) and read
+the findings in the reply.
+
+**Full run, in a tool-capable agent.** Wire up the capabilities below and it also fetches the
+page, renders it in a browser (34/50 criteria plus the licence type-size rule), and writes the
+reports to `output/<run>/`. The rest of this file is that setup.
 
 ---
 

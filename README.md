@@ -1,16 +1,15 @@
 # The Real Estate Agent Website Auditor
 
-**A compliance auditor for a US real estate agent's website.** Attach this folder to an AI
-agent that can read files, run a shell and drive a browser, point it at an agent's website,
+**A compliance auditor for a US real estate agent's website.** Point it at an agent's website
 and it reports every provision that site passes and every one it fails, each located to a file
 and a line and each citing a published rule you can open and read.
 
-It is a folder of instructions and standards, not a program. It runs inside a tool-capable AI
-coding agent — Claude Code, Codex, Cursor, Hermes or any agent that reads this folder's
-`AGENTS.md`/`CLAUDE.md` — and is model-agnostic. It does **not** run in a plain chat or a
-knowledge-only "project" workspace, because those cannot save the page, write the reports, or
-open the browser the render stage needs. See [Requirements](#requirements) and
-[`SETUP.md`](SETUP.md).
+It is a folder of instructions and vendored standards, not a program — model- and
+vendor-agnostic, driven by `AGENTS.md`/`CLAUDE.md`. Attach it to a plain Claude project and it
+audits from source, reaching 20 of the 50 WCAG criteria with zero setup. Attach it to a
+tool-capable agent (Claude Code, Codex, Cursor, Hermes) and it also saves the page itself,
+renders it in a browser to reach 34 of 50, and writes the reports to disk. Same findings, same
+citations either way. Full detail in [Requirements](#requirements) and [`SETUP.md`](SETUP.md).
 
 It is not an SEO tool and it will not tell you how to rank. It answers questions that have
 published, citable answers:
@@ -60,27 +59,32 @@ opinion generator.
 
 ## Requirements
 
-This is a folder of instructions, not an installable program. It runs inside a **tool-capable
-AI agent** — one that can read the files in this folder and act on your machine. It is
-model- and vendor-agnostic: an `AGENTS.md` and a `CLAUDE.md` at the root point any compliant
-agent at the same pipeline. Known-good hosts include **Claude Code, OpenAI Codex, Cursor and
-Hermes**; anything with the four capabilities below will work.
+This is a folder of instructions, not an installable program. It is model- and vendor-agnostic:
+an `AGENTS.md` and a `CLAUDE.md` at the root point any compliant agent at the same pipeline. It
+runs at two levels depending on what the host can do.
 
-| Capability | Why the audit needs it | Without it |
-|---|---|---|
-| **Read files in this folder** | Load `identity.md`, `rules.md`, the stage contracts and `reference/` | The auditor cannot run at all |
-| **Run a shell** | Save the page with `curl`, run `verify-citations.sh` and the freshness check | You must save the page by hand; the verify/freshness scripts don't run |
-| **Write files** | Write the two reports into `output/<run>/` | Findings appear in chat only, nothing is committed to re-open later |
-| **Drive a browser** (Playwright MCP, or equivalent) | Stage 03 renders the page for contrast, keyboard, focus, reflow and licence type-size | 14 WCAG criteria and the type-size rule stay honest gaps; coverage is 20/50 instead of 34/50 |
+**Source-only, zero setup.** Attach the folder to any Claude project (or any assistant that can
+read the files) alongside a saved copy of the page, and it audits from source: it reads the
+markup and `reference/`, and reports pass/fail/gap with a citation for each. This reaches 20 of
+the 50 WCAG criteria and every non-rendered check. It cannot save the page for you, open a
+browser, or write files, so you save the page yourself (three `curl` lines, below) and the
+findings come back in the reply.
 
-**Where it does NOT run:** a plain chat window, or a knowledge-only "project"/workspace that
-merely attaches this folder as reference. Those can read the files but cannot save the page,
-write the reports, or open the browser — so the headline run below is impossible there. A
-knowledge-only workspace can still *reason* over a page you paste in and cite the standard, but
-that is not an audit this tool will stand behind.
+**Full run, in a tool-capable agent.** Give it the four capabilities below — Claude Code,
+OpenAI Codex, Cursor and Hermes all qualify — and it also fetches the page itself, renders it
+in a browser to reach 34 of 50 criteria plus the licence type-size rule, and writes the two
+reports to `output/<run>/`.
 
-**Wiring it up takes a few minutes.** [`SETUP.md`](SETUP.md) has the exact steps, including how
-to add the Playwright browser tools.
+| Capability | What it adds over the source-only run |
+|---|---|
+| **Read files in this folder** | Required at both levels — loads `identity.md`, `rules.md`, the stage contracts and `reference/` |
+| **Run a shell** | Fetches the page with `curl` so you don't have to; runs `verify-citations.sh` and the freshness check |
+| **Write files** | Commits the findings ledger and client summary to `output/<run>/` instead of leaving them in the reply |
+| **Drive a browser** (Playwright MCP, or equivalent) | Renders the page for contrast, keyboard, focus, reflow and licence type-size: 14 more WCAG criteria, taking coverage from 20/50 to 34/50 |
+
+Either way the findings and citations are identical; the tools change what the audit can *reach
+and record*, never what it decides. **Wiring up the full run takes a few minutes** —
+[`SETUP.md`](SETUP.md) has the exact steps, including the Playwright browser tools.
 
 ---
 
