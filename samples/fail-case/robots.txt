@@ -1,0 +1,10 @@
+Disallow: /wp-admin/
+
+User-agent: *
+Allow: /
+Disallow: /docs/
+
+User-agent: Googlebot
+Disallow: /
+
+Sitemap: https://example-agent-site.test/sitemap.xml

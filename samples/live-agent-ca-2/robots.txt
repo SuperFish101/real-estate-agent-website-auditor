@@ -1,0 +1,14 @@
+User-agent: *
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/themes/
+Disallow: /wp-content/cache/
+Disallow: /wp-json/
+Disallow: /author/
+Disallow: /feed/
+Disallow: /category/*/feed/
+
+Allow: /wp-admin/admin-ajax.php
+
+Sitemap: https://example-agent.test/sitemap_index.xml

@@ -1,0 +1,67 @@
+MIT License
+
+Copyright (c) 2026 SuperFish101
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+SCOPE OF THIS LICENCE
+
+This MIT licence covers only the auditor's own files:
+
+  identity.md, rules.md, examples.md, README.md, verify-citations.sh,
+  templates/, samples/, and reference/README.md
+
+It does NOT cover the contents of reference/, which reproduces documents
+published by other parties under their own licences:
+
+  reference/google/*
+    Google Search Central documentation.
+    Licensed under the Creative Commons Attribution 4.0 License.
+    https://creativecommons.org/licenses/by/4.0/
+    Source: https://developers.google.com/search
+    Not endorsed by Google.
+
+  reference/wcag/*
+    Web Content Accessibility Guidelines (WCAG) 2.1, W3C Recommendation.
+    Copyright W3C. Reproduced under the W3C Software and Document Licence.
+    https://www.w3.org/copyright/software-license-2023/
+    Source: https://www.w3.org/TR/WCAG21/
+    Not endorsed by W3C.
+
+  reference/ietf/*
+    RFC 9309, Robots Exclusion Protocol.
+    Copyright (c) 2022 IETF Trust and the persons identified as the document
+    authors. All rights reserved. Subject to BCP 78 and the IETF Trust's Legal
+    Provisions Relating to IETF Documents.
+    https://trustee.ietf.org/license-info
+    Source: https://www.rfc-editor.org/rfc/rfc9309.txt
+    Not endorsed by the IETF.
+
+  reference/california/*
+    California Business and Professions Code section 10140.8, added by AB 723
+    (Stats. 2025, Ch. 497). California statutes are public records and are not
+    subject to copyright.
+    Source: https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB723
+
+NOT LEGAL ADVICE
+
+This software reproduces a statute and reports whether an artifact matches its
+text. It is not legal advice and its authors are not lawyers.

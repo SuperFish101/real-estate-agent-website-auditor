@@ -1,0 +1,27 @@
+# One row per vendored standard. Read by check-standards-freshness.sh.
+# file<TAB>url<TAB>retrieved<TAB>canary
+# The canary is an exact phrase from the vendored text that must still be present on the
+# live page. If it disappears, the standard has changed under us and the file is stale.
+# A non-200 status means the document may have been withdrawn, which is how 24 CFR 109 died.
+google/technical-requirements.md	https://developers.google.com/search/docs/essentials/technical	2026-09-03	The page has indexable content
+google/spam-policies.md	https://developers.google.com/search/docs/essentials/spam-policies	2026-09-03	Blocks of text that list cities and regions that a web page is trying to rank for
+google/structured-data-general-guidelines.md	https://developers.google.com/search/docs/appearance/structured-data/sd-policies	2026-09-03	Items that are missing required properties are not eligible for rich results
+google/local-business-structured-data.md	https://developers.google.com/search/docs/appearance/structured-data/local-business	2026-09-03	only recommended for sites that capture reviews about other local businesses
+wcag/1-perceivable.md	https://www.w3.org/TR/WCAG21/	2026-09-03	has a contrast ratio of at least 4.5:1
+wcag/2-operable.md	https://www.w3.org/TR/WCAG21/	2026-09-03	Web pages have titles that describe topic or purpose
+wcag/3-understandable.md	https://www.w3.org/TR/WCAG21/	2026-09-03	The default human language of each web page can be programmatically determined
+wcag/4-robust.md	https://www.w3.org/TR/WCAG21/	2026-09-03	elements have complete start and end tags
+wcag/conformance.md	https://www.w3.org/TR/WCAG21/	2026-09-03	satisfies all the Level A and Level AA success criteria
+state/ca/bpc-10140-8-ab-723.md	https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB723	2026-09-03	reasonably conspicuous and located on or adjacent to the image
+state/ca/10-ccr-2773.md	https://www.law.cornell.edu/regulations/california/10-CCR-2773	2026-09-04	Websites owned, controlled, and/or maintained by the soliciting real estate licensee
+fair-housing/24-cfr-100-75.md	https://www.ecfr.gov/current/title-24/part-100/section-100.75	2026-09-04	indicates any preference, limitation or discrimination
+ietf/rfc-9309-robots-exclusion-protocol.md	https://www.rfc-editor.org/rfc/rfc9309.txt	2026-09-03	The rules MUST be accessible in a file named "/robots.txt" (all lowercase)
+state/ca/bpc-22575-caloppa.md	https://law.justia.com/codes/california/code-bpc/division-8/chapter-22/section-22575/	2026-09-05	shall conspicuously post its privacy policy on its Web site
+fcc/47-cfr-64-1200-consent.md	https://www.law.cornell.edu/cfr/text/47/64.1200	2026-09-05	bearing the signature of the person called that clearly authorizes the seller
+google/qualify-outbound-links.md	https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links	2026-09-06	Mark links that are advertisements or paid placements
+sitemaps/sitemaps-protocol-0-9.md	https://www.sitemaps.org/protocol.html	2026-09-06	must have no more than 50,000 URLs
+indexnow/indexnow-protocol.md	https://www.indexnow.org/documentation	2026-09-06	minimum of 8 and a maximum of 128 hexadecimal characters
+ai-crawlers/ai-crawler-docs.md	https://platform.openai.com/docs/bots	2026-09-06	OAI-SearchBot is used to surface websites in search results
+ietf/rfc-6797-hsts.md	https://www.rfc-editor.org/rfc/rfc6797.txt	2026-09-06	The REQUIRED "max-age" directive specifies the number of seconds
+bing/bing-webmaster-guidelines.md	https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a	2026-09-06	RENDERED:look for the heading "Bing Webmaster Guidelines" and the abuse list
+fair-housing/24-cfr-109-20-rescinded.md	https://www.hud.gov/sites/documents/46401x23hsgh.pdf	2026-09-06	RESCINDED:withdrawn from the CFR on 1 May 1996 by FR-4029-F-01
