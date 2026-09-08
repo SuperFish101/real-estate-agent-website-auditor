@@ -1,9 +1,16 @@
 # The Real Estate Agent Website Auditor
 
-**A compliance auditor for a US real estate agent's website.** Drop the folder into a Claude
-project, point it at a saved website, and it reports every provision that site passes and
-every one it fails, each located to a file and a line and each citing a published rule you can
-open and read.
+**A compliance auditor for a US real estate agent's website.** Attach this folder to an AI
+agent that can read files, run a shell and drive a browser, point it at an agent's website,
+and it reports every provision that site passes and every one it fails, each located to a file
+and a line and each citing a published rule you can open and read.
+
+It is a folder of instructions and standards, not a program. It runs inside a tool-capable AI
+coding agent — Claude Code, Codex, Cursor, Hermes or any agent that reads this folder's
+`AGENTS.md`/`CLAUDE.md` — and is model-agnostic. It does **not** run in a plain chat or a
+knowledge-only "project" workspace, because those cannot save the page, write the reports, or
+open the browser the render stage needs. See [Requirements](#requirements) and
+[`SETUP.md`](SETUP.md).
 
 It is not an SEO tool and it will not tell you how to rank. It answers questions that have
 published, citable answers:
@@ -24,7 +31,9 @@ The AB 723 one is what nothing else checks. AB 723 made undisclosed AI-staged li
 criminal matter for the licensee this year, and it binds "any person acting on their behalf",
 which means the agent's web developer and marketer too.
 
-There is nothing to install, no API key, and no network call.
+The auditor installs nothing and needs no API key: it is markdown, and its standards are
+vendored in `reference/`. The only network access a run needs is fetching the page under
+audit; nothing in this folder phones home.
 
 ---
 
@@ -49,18 +58,44 @@ opinion generator.
 
 ---
 
+## Requirements
+
+This is a folder of instructions, not an installable program. It runs inside a **tool-capable
+AI agent** — one that can read the files in this folder and act on your machine. It is
+model- and vendor-agnostic: an `AGENTS.md` and a `CLAUDE.md` at the root point any compliant
+agent at the same pipeline. Known-good hosts include **Claude Code, OpenAI Codex, Cursor and
+Hermes**; anything with the four capabilities below will work.
+
+| Capability | Why the audit needs it | Without it |
+|---|---|---|
+| **Read files in this folder** | Load `identity.md`, `rules.md`, the stage contracts and `reference/` | The auditor cannot run at all |
+| **Run a shell** | Save the page with `curl`, run `verify-citations.sh` and the freshness check | You must save the page by hand; the verify/freshness scripts don't run |
+| **Write files** | Write the two reports into `output/<run>/` | Findings appear in chat only, nothing is committed to re-open later |
+| **Drive a browser** (Playwright MCP, or equivalent) | Stage 03 renders the page for contrast, keyboard, focus, reflow and licence type-size | 14 WCAG criteria and the type-size rule stay honest gaps; coverage is 20/50 instead of 34/50 |
+
+**Where it does NOT run:** a plain chat window, or a knowledge-only "project"/workspace that
+merely attaches this folder as reference. Those can read the files but cannot save the page,
+write the reports, or open the browser — so the headline run below is impossible there. A
+knowledge-only workspace can still *reason* over a page you paste in and cite the standard, but
+that is not an audit this tool will stand behind.
+
+**Wiring it up takes a few minutes.** [`SETUP.md`](SETUP.md) has the exact steps, including how
+to add the Playwright browser tools.
+
+---
+
 ## Start here: how you actually run one
 
-You need a real estate agent's website and a Claude project with this folder attached. That is
-the whole setup. There is nothing to install.
+You need a real estate agent's website and a tool-capable agent with this folder attached
+(see [Requirements](#requirements)). Nothing is installed into the folder.
 
-**The short version.** Give Claude the agent's URL and say:
+**The short version.** Give it the website URL and say:
 
 ```
 Audit this real estate agent's website: https://www.example-realty.com/
 ```
 
-Claude saves the page and its stylesheet into a folder, then works the fourteen stages against
+The agent saves the page and its stylesheet into a folder, then works the fourteen stages against
 that folder. **The audit is always run against a saved copy, never against a live URL**, and
 that is deliberate: every finding in this tool cites a file and a line number, and a live web
 page has no line numbers. The saved copy is the thing the citations point at, so anyone can
@@ -93,9 +128,9 @@ everything, whether focus is visible, whether the page reflows at 320 pixels, an
 licence number is set in type smaller than anything else on the page. That takes WCAG coverage
 from 20 of the 50 criteria to 34.
 
-It uses the Playwright tools in whatever client you are running Claude in. **If they are not
-there, the audit still runs**, says so in its header, and leaves those rows as honest gaps
-rather than quiet passes. If you want the source-only run deliberately, say
+It uses the browser tools (Playwright MCP or equivalent) in whatever agent you are running.
+**If they are not there, the audit still runs**, says so in its header, and leaves those rows
+as honest gaps rather than quiet passes. If you want the source-only run deliberately, say
 `audit smith-realty/ no browser`.
 
 **What it wants to be pointed at.** The public website of a US real estate agent, team or
@@ -131,7 +166,7 @@ cd real-estate-agent-website-auditor
 ./verify-citations.sh        # six checks, no dependencies. Proves the citations are real
 ```
 
-Then, in a Claude project with this folder attached:
+Then, in a tool-capable agent with this folder attached (see [Requirements](#requirements)):
 
 ```
 audit samples/live-agent-ca/
@@ -360,7 +395,8 @@ criminal-liability accusations about a real named business that never asked to b
    issue, with the reasoning, on a site where issuing them would have been easy and would have
    made the report look more impressive. That is the test of whether this is an auditor or an
    opinion generator. **(60s)**
-5. Attach the folder to a Claude project and run `audit samples/pass-case/`. It should return
+5. Attach the folder to a tool-capable agent (see [Requirements](#requirements)) and run
+   `audit samples/pass-case/`. It should return
    no LEGAL, BLOCKING or ELIGIBILITY findings and a large block of honest gaps. An auditor that
    finds problems in a clean artifact is broken. **(90s)**
 
