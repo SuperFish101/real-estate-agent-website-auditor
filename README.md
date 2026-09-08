@@ -86,6 +86,34 @@ Either way the findings and citations are identical; the tools change what the a
 and record*, never what it decides. **Wiring up the full run takes a few minutes** —
 [`SETUP.md`](SETUP.md) has the exact steps, including the Playwright browser tools.
 
+### Stage by stage: what runs where
+
+The 20/50-vs-34/50 split is **only stage 07, accessibility.** Everything else runs in full from
+source. This table is the whole truth, pass by pass.
+
+| # | Stage | In a plain Claude project (source only) | What the tools add |
+|---|---|---|---|
+| 01 | freshness | Trusts the vendored standards and their retrieval dates in `reference/` | **Shell:** re-fetches each standard and confirms it hasn't changed since it was vendored |
+| 02 | jurisdiction | **California runs in full** (its pack is vendored). Asks which state applies | **Shell/web:** researches and builds a *new* state's pack when it isn't California |
+| 03 | inventory | Full: lists everything in the markup | **Browser:** also records rendered measurements for stages 07/08/09 |
+| 04 | indexability | **Full.** Robots meta, canonicals, HTTP directives — all from source | — |
+| 05 | crawler-access | **Full.** robots.txt for Google, Bing, ChatGPT, Claude, Perplexity | — |
+| 06 | structured-data | **Full.** Parses the JSON-LD and checks it against `LocalBusiness` | — |
+| 07 | accessibility | **20 of 50 WCAG criteria** — everything a static file can prove | **Browser:** contrast, keyboard, focus, reflow → **34 of 50** |
+| 08 | spam-check | **Full** from source (rarely fires by design; turns on intent) | **Browser:** confirms a couple of layout-dependent cases |
+| 09 | licence-and-broker | Checks the licence number and broker name **are present** on the page | **Browser:** the one thing source can't — whether the type is too small |
+| 10 | listing-images (AB 723) | **Full.** Reads `manifest.md`; no manifest = insufficient evidence | — |
+| 11 | fair-housing | **Full.** Flags wording against 24 CFR 100.75, hands to a person | — |
+| 12 | privacy-and-consent | **Full.** Privacy policy present, lead-form consent text | — |
+| 13 | link-integrity | Internal links and `#anchors` checked in full | **Browser:** outbound link reachability and redirect chains |
+| 14 | report | Assembles both reports **into the reply** | **Write:** commits them to `output/<run>/` to re-open later |
+
+So a plain Claude project runs **eleven of the fourteen stages in full**, plus California law,
+plus 20 of 50 accessibility criteria — every legal, indexing, crawler, structured-data,
+fair-housing, privacy and AB 723 check. The tools add: auto-fetching the page, live freshness
+re-checks, non-California state packs, the 14 rendered accessibility criteria, the licence
+type-size check, outbound-link reachability, and reports written to disk.
+
 ---
 
 ## Start here: how you actually run one
