@@ -201,8 +201,8 @@ Then, in a tool-capable agent with this folder attached (see [Requirements](#req
 audit samples/live-agent-ca/
 ```
 
-A finding looks like this, and every one of the roughly 80 provisions also gets a pass, fail
-or honest-gap row in the ledger:
+A finding looks like this, and every one of the 141 provisions in a California run also gets a
+pass, fail or honest-gap row in the ledger:
 
 ```
 F-001   LEGAL
