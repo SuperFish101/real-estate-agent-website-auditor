@@ -18,10 +18,24 @@ confidently wrong, which is worse than being silent.
 | Source | File/Location | Section/Scope | Why |
 |---|---|---|---|
 | Registry | `../../reference/SOURCES.tsv` | Full file | One row per vendored standard: file, source URL, retrieval date, canary phrase |
-| Script | `../../check-standards-freshness.sh` | Run it | Does the fetching and matching |
+| Script | `../../check-standards-freshness.sh` | Run it, **if this host can run a shell** | Does the fetching and matching. No shell? Step 0 below is the whole stage |
 | Pointers | `../../reference/POINTERS.md` | Full file | Standards that apply but are not vendored, for the closing section of the report |
 
 ## Process
+
+**Step 0. Can this host run a shell and reach the network?** That decides which of two paths this
+stage takes. Both are valid runs and neither is a defect.
+
+**No shell or no network** (a plain Claude project, an attached-folder chat, an offline run):
+**declaring the vendored dates satisfies this stage, and the audit continues.** Do not attempt the
+script, do not report a failure, and do not stall waiting for a tool that is not there. Take the
+`Retrieved` dates from `../../reference/SOURCES.tsv`, record them in `output/<run>/01-freshness.md`
+with the reason freshness was not re-checked, and put this sentence in both report headers:
+**"The standards in this run were not re-checked against their live sources. They were vendored on
+the dates listed and are trusted as of those dates."** Then go to stage 02. That is an honest run.
+What it is not is a claim that the rules are current, and the header must never imply one.
+
+**Shell and network available:** run the full check, from step 1.
 
 1. Run `./check-standards-freshness.sh` from the repo root.
 2. Read the result for every row. There are five outcomes and each has a different consequence.
@@ -57,7 +71,7 @@ confidently wrong, which is worse than being silent.
 
 | Check | Pass Condition |
 |---|---|
-| The script actually ran today | The output carries today's date, not a copied result from a previous run |
+| The stage took one of the two paths, and said which | Either the script output carries **today's** date (not a copied result from a previous run), or `01-freshness.md` states that no shell was available and lists the vendored dates instead. A run that silently skipped both has failed this check |
 | Every STALE file was re-vendored before the audit continued | Its `Retrieved` date is today, and `verify-citations.sh` exits 0 |
 | Every WITHDRAWN standard is named in the report header | The reader learns what could not be checked without hunting for it |
 | Every BLOCKED row was checked by hand | Each one names the person who opened it and what they saw |

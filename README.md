@@ -36,6 +36,24 @@ audit; nothing in this folder phones home.
 
 ---
 
+## The whole run, in one picture
+
+<p align="center">
+  <img src="how-it-works.png" alt="The auditor's pipeline: two gates (01 freshness, 02 jurisdiction), then 03 inventory, then ten independent checks (04 indexability, 05 crawler access, 06 structured data, 07 WCAG 2.1 AA, 08 spam policies, 09 licence and broker, 10 altered photos, 11 fair housing, 12 privacy and consent, 13 links), then 14 report, which produces a plain-English client report and a fix list citing file, line and provision." width="500">
+</p>
+
+**Two gates, ten independent checks, one report.** The gates run first and can stop the whole
+thing: stage 01 confirms every vendored standard is still the live rule, stage 02 loads the one
+state pack that applies. The ten checks in the middle do not talk to each other, and each owns
+exactly one standard and one kind of verdict, so a bad result in one place cannot quietly bend
+the result somewhere else. Stage 11 issues no verdict at all: fair housing wording is surfaced
+and quoted, never graded.
+
+Same diagram as Mermaid, plus what each part is doing and why:
+[`how-it-works.md`](how-it-works.md).
+
+---
+
 ## Where everything is
 
 The five files that define the auditor, in the order they matter:

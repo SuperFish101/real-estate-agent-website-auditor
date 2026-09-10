@@ -114,11 +114,16 @@ Run this, and record every row it returns:
   };
   const over = (fg, bg) => [0,1,2].map(i => fg[i]*fg[3] + bg[i]*(1-fg[3]));
   // If a picture is anywhere behind the text, a computed ratio is not evidence.
+  const overlaps = (a, b) => !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
   const backdropIsPicture = el => {
+    const r = el.getBoundingClientRect();
     for (let n = el; n && n !== document.documentElement; n = n.parentElement) {
       const st = getComputedStyle(n);
-      if (st.backgroundImage !== 'none') return true;
-      if (st.position !== 'static' && n.querySelector('img,video')) return true;
+      // A picture counts only where it actually sits behind THIS text. See lesson 4 below.
+      if (st.backgroundImage !== 'none' && overlaps(r, n.getBoundingClientRect())) return true;
+      if (st.position !== 'static') {
+        for (const m of n.querySelectorAll('img,video')) { if (overlaps(r, m.getBoundingClientRect())) return true; }
+      }
     }
     return false;
   };
@@ -196,6 +201,19 @@ produce.**
    in a state no visitor has seen is not evidence of anything, and it is not nothing either: it
    says what will be true **if** that modal is opened. That belongs in the run as REQUIRES HUMAN,
    naming the modal the person has to open, and never as a FAIL.
+
+4. **A picture only counts if it actually sits behind the text.** The guard above used to fire on
+   any `position: non-static` ancestor that contained an `<img>` anywhere inside it. On a real
+   Sacramento brokerage site (`output/grounded-city-2026-09-10/`) the page-wide wrapper
+   `div.site-container` is `position: relative` and holds images somewhere in the page, so **every
+   element on the page had that ancestor and the guard fired for all 95 text nodes**. The routine
+   returned 0 passes, 0 failures and 95 REQUIRES HUMAN, which reads like a page nobody can measure
+   and was actually a page with one real contrast failure and sixty passes. This is the
+   false-*silence* version of the first three lessons, and it is worse than a false failure,
+   because a false failure gets argued with and a silent 95 gets believed. The fix is the
+   `overlaps()` rectangle test now in the routine. **A guard that never lets anything through is
+   broken, not cautious**: if a run comes back with every reading REQUIRES HUMAN, suspect the
+   guard before you write it up.
 
 Reading the result:
 

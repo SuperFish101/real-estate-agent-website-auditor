@@ -8,6 +8,7 @@ names its own inputs, so you never load a standard before the stage that enforce
 | Task | Go To |
 |---|---|
 | Run a full audit | Stage 01, then 02 through 14, in order |
+| **See how the whole thing works, in one picture** | `how-it-works.md` |
 | **Check the rules are still current** | `stages/01-freshness/CONTEXT.md`. Runs first, every time, automatically |
 | **Decide which state's law applies** | `stages/02-jurisdiction/CONTEXT.md`. Asks. Builds the pack if the state is not wired |
 | List what is in the artifact | `stages/03-inventory/CONTEXT.md` |

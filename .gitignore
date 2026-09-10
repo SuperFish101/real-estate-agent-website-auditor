@@ -1,3 +1,9 @@
 .DS_Store
 *.swp
 *~
+
+# Runs against a named real site stay LOCAL and are never published.
+# method/anonymising-a-run.md: only anonymised runs go public. There is no
+# exception and no permission route. Redact a run before removing it from here.
+output/grounded-city-*/
+samples/grounded-city-*/

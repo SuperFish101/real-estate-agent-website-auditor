@@ -8,7 +8,7 @@ Standard this stage enforces: ``reference/google/spam-policies.md``
 |---|---|---|---|
 | Standard | `../../reference/google/spam-policies.md` | Full file, 372 lines | Every policy, and the examples that set the evidence bar |
 | Contract | `../../rules.md` | Section 6, the evidence bar | The rule that makes this stage slow |
-| Calibration | `../../examples.md` | Example 5 | A worked case of refusing to issue a finding that looks obvious |
+| Calibration | `../../examples.md` | Example 3 | A worked case of refusing to issue a finding that looks obvious |
 
 ## Process
 
